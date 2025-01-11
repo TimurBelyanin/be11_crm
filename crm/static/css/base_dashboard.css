@@ -645,3 +645,13 @@ body.light-mode-variables .line {
         font-size: 8px;
     }
 }
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chop {
+    color: orange;
+}

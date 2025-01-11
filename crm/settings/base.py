@@ -22,10 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third-party packages,
+    'widget_tweaks',
     'django_htmx',
+    'rolepermissions',
 
     # my apps,
-
+    'crm.users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -81,6 +83,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -93,3 +99,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.CustomUser'
+ROLEPERMISSIONS_MODULE = 'crm.users.roles'
+# ROLEPERMISSIONS_REGISTER_ADMIN = True

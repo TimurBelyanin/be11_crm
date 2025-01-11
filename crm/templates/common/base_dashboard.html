@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/base_dashboard.css'%}" />
     <title>BE11/Dashboard</title>
   </head>
-  <body onload="start()">
+  <body onload="start()" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <div class="container">
       <aside>
         <div class="logo">
@@ -506,7 +506,7 @@
                     <span>Settings</span>
                   </p>
                   <p class="line second-line"></p>
-                  <p>
+                  <p hx-post="{% url 'logout' %}">
                     <span class="icon-menu">
                       <svg
                         width="18"
@@ -552,9 +552,14 @@
         </header>
 
         <section class="dashboard">
+          <!-- Кнопка для отправки запроса -->
+          <button hx-trigger="click" hx-get="{% url 'home' %}" hx-target=".dashboard" hx-swap="beforeend">
+            Please, just work...
+          </button>
         </section>
       </main>
     </div>
-    <script async src="{% static 'js/base_dashboard.js' %}"></script>
+    <script src="{% static 'js/base_dashboard.js' %}"></script>
+    <script src="{% static 'js/htmx.min.js' %}"></script>
   </body>
 </html>
