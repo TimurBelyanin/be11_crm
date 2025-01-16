@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
     ]
 
     date_of_birth = models.DateField(verbose_name="Дата рождения")
-    telegram = models.CharField(max_length=100, null=True, blank=True, verbose_name="Телеграм")
+    telegram = models.CharField(max_length=100, unique=True, null=True, blank=True, verbose_name="Телеграм")
     phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Номер телефона")
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True, verbose_name="Изображение профиля")
     usdt_trc20 = models.CharField(max_length=42, null=True, blank=True, verbose_name="Криптокошелек")

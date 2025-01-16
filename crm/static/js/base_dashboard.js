@@ -22,6 +22,8 @@ function start() {
     } else {
         links[0].classList.add("active");
     }
+
+    updateProfileLogo();
 }
 
 lightMode.addEventListener("click", () => {
@@ -31,6 +33,7 @@ lightMode.addEventListener("click", () => {
     } else {
         delete localStorage.theme;
     }
+    updateProfileLogo();
 });
 
 // добавление (и удаление) класса active при нажатии на элемент сайдбара
@@ -44,28 +47,28 @@ links.forEach((link) => {
 });
 
 // Реализация выпадающего меню
-const arrow = document.querySelector(".arrow.bebra");
-const dropdown = document.querySelectorAll(".dropdown-content");
-
-arrow.addEventListener("click", () => {
-    // dropdown.forEach((down) => down.classList.toggle("open"));
-    dropdown[1].classList.toggle("open");
-    if (
-        Array.from(dropdown).some((element) =>
-            element.classList.contains("open"),
-        )
-    ) {
-        arrow.style.transform =
-            window.innerWidth <= 768
-                ? "rotate(-180deg) scale(0.84)"
-                : "rotate(-180deg)";
-    } else {
-        arrow.style.transform =
-            window.innerWidth <= 768
-                ? "rotate(0deg) scale(0.84)"
-                : "rotate(0deg)";
-    }
-});
+//const arrow = document.querySelector(".arrow.bebra");
+//const dropdown = document.querySelectorAll(".dropdown-content");
+//
+//arrow.addEventListener("click", () => {
+//    // dropdown.forEach((down) => down.classList.toggle("open"));
+//    dropdown[1].classList.toggle("open");
+//    if (
+//        Array.from(dropdown).some((element) =>
+//            element.classList.contains("open"),
+//        )
+//    ) {
+//        arrow.style.transform =
+//            window.innerWidth <= 768
+//                ? "rotate(-180deg) scale(0.84)"
+//                : "rotate(-180deg)";
+//    } else {
+//        arrow.style.transform =
+//            window.innerWidth <= 768
+//                ? "rotate(0deg) scale(0.84)"
+//                : "rotate(0deg)";
+//    }
+//});
 
 // Добавление стилей к сайдбару (укзазание паддинга при сжимании)
 const sidebar = document.querySelector("aside");
@@ -202,6 +205,43 @@ function updateSvg() {
         // console.log("DESKTOP");
     }
 }
+
+const logo = document.querySelector("aside .logo");
+const deepSidebar = document.querySelector("aside .sidebar")
+function squeezeAside() {
+    sidebar.classList.toggle("squeeze-aside");
+    logo.classList.toggle("squeeze-logo");
+    deepSidebar.classList.toggle("hide-sidebar");
+}
+
+function updateProfileLogo() {
+    const logo = document.getElementById('profile-logo');
+    if (!logo) {
+      console.error("Элемент с id 'profile-logo' не найден!");
+      return; // Прерываем выполнение, если элемент не найден
+    }
+
+    const isLightMode = document.body.classList.contains('light-mode-variables');
+    logo.src = isLightMode ? '/images/light-userr.svg' : '/images/userr.svg';
+  }
+
+document.addEventListener('alpine:init', () => {
+    Alpine.data('myForm', () => ({
+        errors: {},
+
+        updateErrors(event) {
+            const responseText = JSON.parse(event.detail.xhr.response);
+
+            if (event.detail.xhr.response && responseText.errors) {
+                this.errors = responseText.errors;
+                console.log(responseText);
+            } else {
+                console.log('Ошибки не найдены в ответе');
+            }
+        }
+    }))
+})
+
 
 window.addEventListener("resize", updatePaddingSidebar);
 window.addEventListener("resize", checkScrollbar);

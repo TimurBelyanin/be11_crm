@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'rolepermissions',
 
     # my apps,
-    'crm.users.apps.UsersConfig'
+    'crm.users.apps.UsersConfig',
+    'crm.core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [

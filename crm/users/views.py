@@ -7,6 +7,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LogoutView
+from django.core.validators import ValidationError
 
 
 class LoginView(View):
@@ -30,15 +32,7 @@ class LoginView(View):
             return render(request, 'partials/button-error.html')
 
 
-@login_required
-def home(request):
-    if request.htmx:
-        return render(request, 'partials/test.html')
-    print(request.htmx)
-    # return render(request, 'common/base_dashboard.html')
-    return render(request, 'common/base_dashboard.html')
-
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseClientRefresh()
+class CustomLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        super().dispatch(request, *args, **kwargs)
+        return HttpResponseClientRefresh()
