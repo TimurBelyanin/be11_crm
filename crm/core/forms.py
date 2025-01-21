@@ -50,12 +50,12 @@ class RegisterForm(forms.ModelForm):
             MinLengthValidator(2),
             MaxLengthValidator(20)
         ],
-        required=True
+        required=False
     )
 
-    email = forms.EmailField(validators=[EmailValidator()], required=True)
+    email = forms.EmailField(validators=[EmailValidator()], required=False)
 
-    date_of_birth = forms.DateField(required=True)
+    date_of_birth = forms.DateField(required=False)
 
     telegram = forms.CharField(
         validators=[
@@ -74,6 +74,12 @@ class RegisterForm(forms.ModelForm):
         required=False
     )
 
+    def clean_telegram(self):
+        telegram = self.cleaned_data.get('telegram')
+        if telegram == '':
+            return None
+        return telegram
+
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get("username")
@@ -81,6 +87,7 @@ class RegisterForm(forms.ModelForm):
         telegram = cleaned_data.get("telegram")
 
         if username and CustomUser.objects.filter(username=username).exists():
+            print("КАКОГО ХЕРА БЛЯТЬ")
             raise forms.ValidationError({"username": "A user with this username already exists."})
 
         if email and CustomUser.objects.filter(email=email).exists():

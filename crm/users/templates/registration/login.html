@@ -21,7 +21,7 @@
                 The system is designed for your comfortable earning
             </p>
         </div>
-        <form hx-post="{% url 'login' %}" hx-target=".btn-error" hx-swap="outerHTML" action="post">
+        <form hx-post="{% url 'login' %}" hx-target=".buttons-form" hx-swap="outerHTML" action="post">
             {% csrf_token %}
             <div class="fa-input">
                 <span class="fa ri-user-3-fill">
@@ -105,7 +105,8 @@
             </div>
 
             <div class="buttons-form">
-                <div class="btn-error"></div>
+                <div class="error-text red"></div>
+
                 <button class="btn" type="submit">Log in</button>
             </div>
 <!--            <button class="btn">Log in</button>-->

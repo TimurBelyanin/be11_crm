@@ -44,6 +44,30 @@ class SeniorTeamLead(AbstractUserRole):
     pass
 
 
+class LeadWebDeveloper(AbstractUserRole):
+    pass
+
+
+class WebDeveloper(AbstractUserRole):
+    pass
+
+
+class LeadDesigner(AbstractUserRole):
+    pass
+
+
+class Designer(AbstractUserRole):
+    pass
+
+
+class LeadVideoCreator(AbstractUserRole):
+    pass
+
+
+class VideoCreator(AbstractUserRole):
+    pass
+
+
 # class Doctor(AbstractUserRole):
 #     available_permissions = {
 #         'create_medical_record': True,
